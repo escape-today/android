@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menu_main">
+
+    <item
+        android:id="@+id/menu_main_new_scenario"
+        android:title="Go" />
+    <item
+        android:id="@+id/menu_main_customise_scenario"
+        android:title="customise" />
+    <item
+        android:id="@+id/menu_main_about"
+        android:title="about" />
+    <item
+        android:id="@+id/menu_main_help"
+        android:title="Help!" />
+</menu>
