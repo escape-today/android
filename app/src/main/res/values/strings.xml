@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">EscapeTodayClient</string>
     <string name="title_activity_loading">LoadingActivity</string>
-    <string name="loading_message">get ready for the end of the world...</string>
+    <string name="loading_message">get ready for the end of the world&#8230;</string>
+    <string name="the_end_of_the_world_is_nigh">the end of the world is nigh</string>
 </resources>
