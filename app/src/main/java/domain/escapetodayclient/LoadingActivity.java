@@ -42,7 +42,7 @@ public class LoadingActivity extends AppCompatActivity {
         @Override
         protected ReadyState doInBackground(Void... voids) {
             try {
-                Thread.sleep(5000);
+                Thread.sleep(1000);
                 //Toast.makeText(this,"things okay", Toast.LENGTH_SHORT).show();
                 return ReadyState.READY;
 
