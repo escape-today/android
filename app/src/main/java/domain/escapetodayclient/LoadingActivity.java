@@ -22,8 +22,6 @@ public class LoadingActivity extends AppCompatActivity {
 
     enum ReadyState {LOADING, READY, ERROR};
 
-    private ReadyState MainActivityReadyState = ReadyState.LOADING;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,24 +53,12 @@ public class LoadingActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(ReadyState result){
-            if (con.get() != null ) {
+            if (con.get() != null && result == ReadyState.READY) {// Main Activity
                 con.get().startActivity(new Intent(con.get(), MainActivity.class));
-            }
-        }
-    }
-
-    private class MainLoader implements Runnable {
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(5000);
-                MainActivityReadyState = ReadyState.READY;
-                //Toast.makeText(activity,"things okay", Toast.LENGTH_SHORT).show();
-                //startActivity(new Intent(activity, MainActivity.class));
-            } catch (InterruptedException e) {
-                MainActivityReadyState = ReadyState.ERROR;
-                //Toast.makeText(activity,"things have broken", Toast.LENGTH_SHORT).show();
-                Thread.currentThread().interrupt();
+            } else if (con.get() != null){ // Error Activity
+                System.exit(1);
+            } else { // die
+                System.exit(1);
             }
         }
     }
