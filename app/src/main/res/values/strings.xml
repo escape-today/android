@@ -14,4 +14,7 @@
     </string>
     <string name="url_get_home">https://api.escape-today.net/</string>
     <string name="url_get_flights">https://api.escape-today.net/shit?from=%s&amp;to=sydney</string>
+    <string name="menu_instruction">Swipe right to view menu</string>
+    <string name="start_button">Start</string>
+    <string name="start_pointer">Or click the start button</string>
 </resources>
