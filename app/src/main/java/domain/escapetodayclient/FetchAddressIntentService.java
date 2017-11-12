@@ -3,11 +3,15 @@ package domain.escapetodayclient;
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.Context;
+import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.ResultReceiver;
+import android.util.Log;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 import java.util.logging.Logger;
 
@@ -25,6 +29,7 @@ public class FetchAddressIntentService extends IntentService {
 
     public static final String LOCATION_X = "x";
     public static final String LOCATION_Y = "y";
+    public static final String RECEIVER = "stuff";
 
     public static final class Codes {
         public static final int SUCCESS = 0;
@@ -41,20 +46,34 @@ public class FetchAddressIntentService extends IntentService {
      *
      * @see IntentService
      */
-    public static void startActionFetch(Context context, int x, int y) {
+    public static void startActionFetch(Context context, ResultReceiver r, double x, double y) {
         Intent intent = new Intent(context, FetchAddressIntentService.class);
         intent.setAction(ACTION_FETCH_ADDRESS);
         intent.putExtra(LOCATION_X, x);
         intent.putExtra(LOCATION_Y, y);
+        intent.putExtra(RECEIVER, r);
         context.startService(intent);
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
+            mReceiver = (ResultReceiver) intent.getParcelableExtra(RECEIVER);
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
             try {
-                String city = geocoder.getFromLocation(0, 0, 1).get(0).getAddressLine(0);
+                double lat = intent.getDoubleExtra(LOCATION_Y, 0);
+                double lng = intent.getDoubleExtra(LOCATION_X, 0);
+                Log.i("LOCATION", lat + " " + lng);
+                List<Address> l = geocoder.getFromLocation(lat, lng, 1);
+                        String city = "Manchester";
+                Log.i("SIZE", Integer.valueOf(l.size()).toString());
+                if(!Geocoder.isPresent())
+                  Log.w("!!!!!!!!!!!!", "NOT PRESENT");
+                if (l.size() > 0){
+                        city = l.get(0)
+                        .getAddressLine(1);
+                        Log.i("GOOD city: ", city);
+                }
                 Bundle b = new Bundle();
                 b.putString("city", city);
                 b.putBoolean("err", false);

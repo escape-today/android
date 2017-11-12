@@ -61,31 +61,6 @@ public class NewScenarioActivity extends AppCompatActivity implements LocationLi
         rv.setLayoutManager(lm);
         rv.setAdapter(mAdapter);
 
-        // send request to API
-        RequestQueue queue = Volley.newRequestQueue(this);
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, getString(R.string.url_get_flights), null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject res) {
-                        //Toast.makeText(getApplicationContext(), "done request", Toast.LENGTH_SHORT).show();
-                        try {
-                            jsonData = res.getJSONArray("msg");
-                            Logger.getLogger("hello").info(jsonData.toString(2));
-                            mAdapter.notifyDataSetChanged();
-                        } catch (Exception e){
-
-                        }
-                        System.out.println(jsonData);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Logger.getLogger("hello").warning(error.getMessage());
-            }
-        });
-
-        queue.add(request);
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
@@ -96,8 +71,7 @@ public class NewScenarioActivity extends AppCompatActivity implements LocationLi
                 Toast.makeText(this, "L " + l.getLatitude() + ", " + l.getLongitude() , Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, "location 1 not found", Toast.LENGTH_LONG).show();
-                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 0, this);
-
+                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
             }
         }
     }
@@ -106,10 +80,10 @@ public class NewScenarioActivity extends AppCompatActivity implements LocationLi
         Log.i("LOCATION", "CHANGED LOCATION");
         if (location != null) {
             Toast.makeText(this, "L " + location.getLatitude() + ", " + location.getLongitude() , Toast.LENGTH_LONG).show();
-            Logger.getLogger("WAAAAAAAA").info(location.getLatitude() + " " + location.getLongitude());
-            //mLocationManager.removeUpdates(this);
+            mLocationManager.removeUpdates(this);
+
+            FetchAddressIntentService.startActionFetch(this, new AddressResultReciever(new android.os.Handler()), location.getLongitude(), location.getLatitude());
         }
-        Toast.makeText(this, "still broken location", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -188,7 +162,7 @@ public class NewScenarioActivity extends AppCompatActivity implements LocationLi
         }
     }
 
-    private class AddressResultReciever extends ResultReceiver{
+    class AddressResultReciever extends ResultReceiver{
 
         public AddressResultReciever(Handler handler) {
             super(handler);
@@ -196,9 +170,41 @@ public class NewScenarioActivity extends AppCompatActivity implements LocationLi
 
         @Override
         protected void onReceiveResult(int code, Bundle bundle){
+            Log.i("YESSSSSsss", "stuff");
             switch (code){
                 case FetchAddressIntentService.Codes.SUCCESS:
-                    //locationString = bundle.getString("city");
+                    String bundleString = bundle.getString("city");
+                    Log.i("BUN", bundle.toString());
+
+                    // send request to API
+                    RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+                    String url = String.format(getString(R.string.url_get_flights), bundleString);
+                    Log.i("NET GET", url +  " / " +getString(R.string.url_get_flights));
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject res) {
+                                    //Toast.makeText(getApplicationContext(), "done request", Toast.LENGTH_SHORT).show();
+                                    try {
+                                        jsonData = res.getJSONArray("msg");
+                                        Logger.getLogger("hello").info(jsonData.toString(2));
+                                        mAdapter.notifyDataSetChanged();
+                                    } catch (Exception e){
+
+                                    }
+                                    System.out.println(jsonData);
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Logger.getLogger("hello").warning(error.getMessage());
+                        }
+                    });
+
+                    queue.add(request);
+
+
                     mAdapter.notifyDataSetChanged();
                     break;
                 case FetchAddressIntentService.Codes.FAILURE:

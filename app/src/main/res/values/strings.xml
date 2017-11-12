@@ -13,5 +13,5 @@
         Enter details
     </string>
     <string name="url_get_home">https://api.escape-today.net/</string>
-    <string name="url_get_flights">https://api.escape-today.net/shit?from=manchester&amp;to=sydney</string>
+    <string name="url_get_flights">https://api.escape-today.net/shit?from=%s&amp;to=sydney</string>
 </resources>
