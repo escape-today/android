@@ -12,4 +12,5 @@
         \n
         Enter details
     </string>
+    <string name="menu_instruction">Swipe right to view menu</string>
 </resources>
