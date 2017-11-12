@@ -3,4 +3,13 @@
     <string name="title_activity_loading">LoadingActivity</string>
     <string name="loading_message">get ready for the end of the world&#8230;</string>
     <string name="the_end_of_the_world_is_nigh">the end of the world is nigh</string>
+    <string name="help_title">Help</string>
+    <string name="help_subheading_Using_The_App">Using The App</string>
+    <string name="Using_The_App_content">
+        To use the app swipe right on the Home screen\n
+        \n
+        Click on customise\
+        \n
+        Enter details
+    </string>
 </resources>
