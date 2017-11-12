@@ -21,10 +21,15 @@ public class FetchAddressIntentService extends IntentService {
     protected ResultReceiver mReceiver;
 
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
-    private static final String ACTION_FETCH_ADDRESS= "domain.escapetodayclient.action.FETCH_ADDRESS";
+    public static final String ACTION_FETCH_ADDRESS= "domain.escapetodayclient.action.FETCH_ADDRESS";
 
-    private static final String LOCATION_X = "0";
-    private static final String LOCATION_Y = "0";
+    public static final String LOCATION_X = "x";
+    public static final String LOCATION_Y = "y";
+
+    public static final class Codes {
+        public static final int SUCCESS = 0;
+        public static final int FAILURE = 1;
+    }
 
     public FetchAddressIntentService() {
         super("FetchAddressIntentService");
@@ -36,7 +41,7 @@ public class FetchAddressIntentService extends IntentService {
      *
      * @see IntentService
      */
-    public static void startActionFetch(Context context, String x, String y) {
+    public static void startActionFetch(Context context, int x, int y) {
         Intent intent = new Intent(context, FetchAddressIntentService.class);
         intent.setAction(ACTION_FETCH_ADDRESS);
         intent.putExtra(LOCATION_X, x);
