@@ -1,6 +1,7 @@
 package domain.escapetodayclient;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                     //showAbout();
                     return true;
                 case R.id.menu_main_new_scenario:
-                    //showNewScenario();
+                    showNewScenario();
                     return true;
                 case R.id.menu_main_help:
                     //showHelp();
@@ -44,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 default: return false;
             }
+        }
+
+        private void showNewScenario(){
+            Intent i = new Intent(context, NewScenarioActivity.class);
+            startActivity(i);
         }
     }
 }
