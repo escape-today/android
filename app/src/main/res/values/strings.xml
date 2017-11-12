@@ -12,4 +12,5 @@
         \n
         Enter details
     </string>
+    <string name="url_get_flights">http://www.google.com</string>
 </resources>
