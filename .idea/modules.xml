@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/EscapeTodayClient.iml" filepath="$PROJECT_DIR$/EscapeTodayClient.iml" />
       <module fileurl="file://C:\Users\Louis Gibson\StudioProjects\android\android\EscapeTodayClient.iml" filepath="C:\Users\Louis Gibson\StudioProjects\android\android\EscapeTodayClient.iml" />
       <module fileurl="file://$PROJECT_DIR$/android.iml" filepath="$PROJECT_DIR$/android.iml" />
       <module fileurl="file://C:\Users\Louis Gibson\StudioProjects\android\android\android.iml" filepath="C:\Users\Louis Gibson\StudioProjects\android\android\android.iml" />
