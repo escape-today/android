@@ -13,12 +13,29 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/scenario_item_title"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Default"
-        android:layout_alignParentTop="true"
+        android:id="@+id/scenario_item_price"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/scenario_item_origin"
+        android:layout_marginTop="31dp"
+        android:text="Default" />
+
+    <TextView
+        android:id="@+id/scenario_item_direct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/scenario_item_price"
+        android:layout_marginTop="27dp"
+        android:text="Default" />
+
+    <TextView
+        android:id="@+id/scenario_item_origin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="13dp"
+        android:text="Default" />
 </RelativeLayout>
