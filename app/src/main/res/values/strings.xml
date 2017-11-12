@@ -8,9 +8,8 @@
     <string name="Using_The_App_content">
         To use the app swipe right on the Home screen\n
         \n
-        Click on customise\
-        \n
-        Enter details
     </string>
     <string name="menu_instruction">Swipe right to view menu</string>
+    <string name="start_button">Start</string>
+    <string name="start_pointer">Or click the start button</string>
 </resources>

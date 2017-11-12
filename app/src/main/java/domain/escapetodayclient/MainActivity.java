@@ -7,6 +7,8 @@ import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,6 +19,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         NavigationView mDraw = (NavigationView) findViewById(R.id.navigation);
         mDraw.setNavigationItemSelectedListener(new NavListener(this));
+    }
+
+    public void StartButton(View v){
+        Intent startBtn = new Intent(MainActivity.this, NewScenarioActivity.class);
+        startActivity(startBtn);
     }
 
     private class NavListener implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
                 default: return false;
             }
         }
+
+
 
         private void showAbout(){
             Intent i = new Intent(context, AboutActivity.class);
